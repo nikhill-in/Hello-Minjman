@@ -107,7 +107,7 @@ import VendorDashboard from "../Component/pages/dashboards/VendorDashboard.jsx";
 import ServiceProvider from "../Component/pages/dashboards/ServiceProvider.jsx"
 
 // ... existing imports
-import AdminRegister from "../Component/pages/admin/adminRegister.jsx";
+import AdminRegister from "../Component/pages/admin/AdminRegister.jsx";
 const AppRoutes = () => {
   return (
     <Routes>
