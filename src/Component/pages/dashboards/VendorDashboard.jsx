@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Vendors from '../../../../public/Vendors.png'
 
-const VendorDashboard = () => {
+const VendorDashboard = () => { 
   const navigate = useNavigate();
 
   return (

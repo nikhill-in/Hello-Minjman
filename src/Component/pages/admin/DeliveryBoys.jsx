@@ -1,13 +1,29 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaTruck, FaPlus, FaTrash, FaIdCard, FaMotorcycle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
+import {
+  FaTruck,
+  FaPlus,
+  FaTrash,
+  FaIdCard,
+  FaMotorcycle,
+} from "react-icons/fa";
+import { getDrivers } from "../../../services_api/features/auth/authThunks";
 
 const DeliveryBoys = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { users, loading } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getDrivers());
+  }, []);
+
+  const { drivers, loading } = useSelector((state) => state.auth);
+  console.log(drivers, "this is the console from driver page");
 
   // Filter only Delivery users from the main users list
-  const deliveryBoys = users?.filter(user => user.role === "Delivery") || [];
+  // const deliveryBoys = drivers?.filter((user) => user.role === "Driver") || [];
 
   return (
     <div className="w-full max-w-7xl mx-auto">
@@ -17,11 +33,18 @@ const DeliveryBoys = () => {
             <FaTruck size={28} />
           </div>
           <div>
-            <h1 className="text-4xl font-black text-gray-800 tracking-tight italic">Logistics Fleet</h1>
-            <p className="text-gray-500 font-medium">Manage delivery partners and vehicle verification.</p>
+            <h1 className="text-4xl font-black text-gray-800 tracking-tight italic">
+              Logistics Fleet
+            </h1>
+            <p className="text-gray-500 font-medium">
+              Manage delivery partners and vehicle verification.
+            </p>
           </div>
         </div>
-        <button className="bg-orange-600 text-white px-8 py-4 rounded-2xl font-black flex items-center gap-3 shadow-xl hover:bg-orange-700 transition-all active:scale-95">
+        <button
+          className="bg-orange-600 text-white px-8 py-4 rounded-2xl font-black flex items-center gap-3 shadow-xl hover:bg-orange-700 transition-all active:scale-95"
+          onClick={() => navigate("/register", { state: { role: "delivery" } })}
+        >
           <FaPlus /> Add Rider
         </button>
       </div>
@@ -30,16 +53,29 @@ const DeliveryBoys = () => {
         <table className="w-full text-left">
           <thead className="bg-gray-50/50 border-b border-gray-100">
             <tr>
-              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest">Rider Details</th>
-              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest text-center">Vehicle No.</th>
-              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest text-center">License</th>
-              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest">Status</th>
-              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest text-right">Actions</th>
+              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest">
+                Rider Details
+              </th>
+              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest text-center">
+                Vehicle No.
+              </th>
+              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest text-center">
+                License
+              </th>
+              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest">
+                Status
+              </th>
+              <th className="p-6 text-xs font-black uppercase text-gray-400 tracking-widest text-right">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {deliveryBoys.map((rider) => (
-              <tr key={rider.id} className="hover:bg-orange-50/20 transition-colors group">
+            {drivers.map((rider) => (
+              <tr
+                key={rider.id}
+                className="hover:bg-orange-50/20 transition-colors group"
+              >
                 <td className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center font-black text-gray-400">
@@ -60,7 +96,9 @@ const DeliveryBoys = () => {
                   {rider.licenseNumber || "VERIFIED"}
                 </td>
                 <td className="p-6">
-                  <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${rider.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+                  <span
+                    className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${rider.status === "Active" ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}
+                  >
                     {rider.status || "Active"}
                   </span>
                 </td>

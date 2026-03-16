@@ -94,7 +94,7 @@ export const registerDriver = createAsyncThunk(
   "auth/registerDriver",
   async (formData, { rejectWithValue }) => { 
     try {
-      const res = await axiosInstance.post("/admin/driver/create", formData);
+      const res = await axiosInstance.post("/admin/drivers", formData);
       const { token, user } = res.data;
 
       if (token && user) {
@@ -108,6 +108,18 @@ export const registerDriver = createAsyncThunk(
     }
   }
 );
+
+export const getDrivers = createAsyncThunk("auth/getDrivers",
+  async (_,{rejectWithValue}) =>{
+    try{
+      const res = await axiosInstance.get("/admin/drivers")
+      console.log("this is the getDriver thunks", res)
+      return res.data;
+    }catch(error){
+      return rejectWithValue(err.response?.data?.message || "Failed to fetch Drivers");
+    }
+  }
+)
 
 
 //PROFESSIONAL THUNK===============================================================================================================
@@ -138,6 +150,8 @@ export const getProfessionals = createAsyncThunk(
     }
   }
 );
+
+
 
 
 export const updateProfile = createAsyncThunk(

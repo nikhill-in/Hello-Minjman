@@ -24,6 +24,8 @@ const Register = () => {
   const selectedRole = watch("role");
 
    const onSubmit = async (data) => {
+    const {role,...formData}  = data;
+    console.log(data, "form data from registration")
   try {
     let action;
 
@@ -35,7 +37,7 @@ const Register = () => {
         action = registerProfessional(data);
         break;
       case "delivery":
-        action = registerDriver(data);
+        action = registerDriver(formData);
         break;
       default:
         action = registerUser(data);
@@ -45,7 +47,7 @@ const Register = () => {
 
     if (role === "Vendor") navigate("/vendor-dashboard");
     else if(role === "Professionals") navigate("professional-dashboard");
-    else if (role === "Delivery") navigate("/delivery-dashboard");
+    else if (role === "Delivery") navigate("admin/delivery");
     else navigate("/user-dashboard");
     
   } catch (error) {

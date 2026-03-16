@@ -5,6 +5,7 @@ import {
   updateProfile,
   registerVendor,
   registerDriver,
+  getDrivers,
   registerProfessional,
   getProfessionals,
 } from "./authThunks";
@@ -20,6 +21,7 @@ const getInitialUser = () => {
 
 const initialState = {
   user: getInitialUser(),
+  drivers: [], // This holds the Drivers list....
   users: [], // This holds the list for your Admin Dashboards
   loading: false,
   error: null,
@@ -67,6 +69,21 @@ const authSlice = createSlice({
         state.users = payload;
       })
       .addCase(getUsers.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+
+            // 🔹 Get Users (List for Drivers Dashboards)
+      .addCase(getDrivers.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getDrivers.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.drivers = payload.data.data;
+        console.log("this is the payload from the Driver slice", payload.data.data)
+      })
+      .addCase(getDrivers.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

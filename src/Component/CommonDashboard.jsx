@@ -138,7 +138,7 @@ const CommonDashboard = () => {
             <h2 className="text-4xl font-bold mb-6 text-indigo-400 leading-tight">Ready to start your journey?</h2>
             <p className="text-gray-400 text-xl leading-relaxed">
               Join thousands of people who are already growing their business or 
-              simplifying their lives with Minzwan.
+              simplifying their lives with Minzwan. 
             </p>
           </div>
           <button 

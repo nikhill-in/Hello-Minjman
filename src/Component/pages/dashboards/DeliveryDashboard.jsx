@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaTruck, FaWallet, FaMapMarkedAlt, FaChevronRight } from 'react-icons/fa';
 
 const DeliveryDashboard = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gray-50 p-4 md:p-8">
